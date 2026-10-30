@@ -1,9 +1,10 @@
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.MONGO_URI);
+let client;
 
 export async function connectToMongoDB() {
   try {
+    client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
     console.log('You successfully connected to MongoDB!');
     return client;
@@ -16,3 +17,4 @@ export async function connectToMongoDB() {
 export function getClient() {
   return client;
 }
+
