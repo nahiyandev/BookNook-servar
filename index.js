@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToMongoDB } from './db/connect.js';
+import booksRouter from './routes/books.js';
 
 dotenv.config();
 
@@ -15,9 +16,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the BookNook API!');
 });
 
-app.get('/api/books', (req, res) => {
-  res.json({ message: 'List of books' });
-});
+app.use('/api/books', booksRouter);
 
 connectToMongoDB().then(() => {
   app.listen(PORT, () => {
