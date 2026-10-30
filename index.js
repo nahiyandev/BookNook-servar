@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
   res.send('Welcome to the BookNook API!');
 });
 
-app.use('/api/books', booksRouter);
-app.use('/api/borrows', borrowsRouter);
+app.use('/books', booksRouter);
+app.use('/borrows', borrowsRouter);
 
 connectToMongoDB().then(() => {
   const auth = createAuth();
