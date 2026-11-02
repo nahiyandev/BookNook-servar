@@ -32,7 +32,21 @@ function borrows() {
 
 router.get("/", async (req, res) => {
   try {
-    const result = await books().find().sort({ addedAt: -1 }).toArray();
+    const { category, search } = req.query;
+    const filter = {};
+
+    if (category && CATEGORIES.includes(category)) {
+      filter.category = category;
+    }
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search.trim(), $options: "i" } },
+        { author: { $regex: search.trim(), $options: "i" } },
+      ];
+    }
+
+    const result = await books().find(filter).sort({ addedAt: -1 }).toArray();
     res.json(result);
   } catch (err) {
     console.error(err);
