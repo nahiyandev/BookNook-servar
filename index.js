@@ -22,6 +22,14 @@ app.get('/', (req, res) => {
   res.send('Welcome to the BookNook API!');
 });
 
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.use('/books', booksRouter);
 app.use('/borrows', borrowsRouter);
 

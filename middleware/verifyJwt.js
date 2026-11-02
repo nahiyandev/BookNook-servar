@@ -1,20 +1,6 @@
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
-/**
- * BookNook JWT verification — Backend v2 (NEW file, ESM).
- * Your backend is ESM (import/export), so this file imports jose directly
- * — no dynamic import trick is needed (that was only for CommonJS).
- *
- * The frontend (Next.js BetterAuth + JWT plugin) issues the token and
- * serves its public keys at AUTH_BASE_URL + "/api/auth/jwks".
- * issuer/audience = AUTH_BASE_URL (BetterAuth uses BASE_URL for both).
- * AUTH_BASE_URL = frontend URL (same value as CLIENT_URL in your .env):
- * locally http://localhost:3000, live https://booknook-lovat.vercel.app.
- *
- * On success: req.user = { id, email, name } from the token payload.
- * The backend trusts the TOKEN's email, never a body email.
- * On failure: 401, no bypass.
- */
+
 let cachedJwks = null;
 
 function getJwks() {
